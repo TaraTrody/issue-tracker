@@ -15,7 +15,8 @@ export interface IUserInput {
   name: {
     first: string;
     last: string;
-    email: string;
-    password: string;
   };
+  email: string;
+  password: string;
+  
 }

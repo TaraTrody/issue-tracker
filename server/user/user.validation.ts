@@ -24,6 +24,17 @@ export const userSignUp = {
   ],
 };
 
+export const userSignIn = {
+  validate: [
+    check('email')
+    .isEmail()
+    .withMessage('Must enter valid email address'),
+    check('password')
+    .notEmpty()
+    .withMessage('Enter password')
+  ]
+}
+
 export const myValidationResult = validationResult.withDefaults({
   formatter: ({ location, msg, param, value, nestedErrors }) => ({
     type: 'Error',
