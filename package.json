@@ -2,14 +2,14 @@
   "name": "issue-tracker",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.ts",
   "scripts": {
     "start": "nodemon",
-    "inspect": "nodemon --inspect src/app.ts",
+    "inspect": "nodemon --inspect server/app.ts",
     "lint": "tsc --noEmit && eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
   },
   "keywords": [],
-  "author": "",
+  "author": "Tara Trody",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^4.0.0",
