@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
+import express from 'express';
 import * as AuthService from './user.service';
 import { IUserInput } from './user.interfaces';
 import { myValidationResult } from './user.validation';
 import User from './user.schema'
 
-export const signUp = async (req: Request, res: Response) => {
+export const signUp = async (req, res) => {
   const userData: IUserInput = req.body;
   try {
   
@@ -26,7 +26,7 @@ export const signUp = async (req: Request, res: Response) => {
   }
 };
 
-export const signIn = async (req: Request, res: Response) => {
+export const signIn = async (req,res) => {
   const { email, password} = req.body;
   try {
     const user = await AuthService.signIn(email, password)
@@ -34,4 +34,9 @@ export const signIn = async (req: Request, res: Response) => {
   } catch(err) {
     throw err;
   }
+}
+
+export const signOut = async (req,res) => {
+  req.logout();
+  return res.redirect('/')
 }
