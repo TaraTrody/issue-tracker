@@ -45,6 +45,7 @@ export const signIn = async (email: string, password: string): Promise<{token: s
   }
 };
 
+
 const generateToken = (newUser: IUser):string => {
   const today = new Date();
   const expiry = new Date(today);
