@@ -6,6 +6,7 @@ import User from './user.schema'
 
 export const signUp = async (req, res) => {
   const userData: IUserInput = req.body;
+  // console.log(userData)
   try {
   
     const result = myValidationResult(req);
@@ -13,14 +14,15 @@ export const signUp = async (req, res) => {
     if (hasErrors) {
       return res.status(400).send({ errors: result })
     } 
-    const userRecord = User.find({email: userData.email})
+    const userRecord = await User.findOne({email: userData.email})
+    console.log(userRecord)
     if(userRecord) {
-      return res.status(400).send("Email already exists")
+      return res.status(400).send("Email already kjexists")
     }
 
     const user = await AuthService.signUp(userData);
 
-    return res.json({ user });
+    return res.json( user );
   } catch (err) {
     throw err
   }
@@ -40,3 +42,8 @@ export const signOut = async (req,res) => {
   req.logout();
   return res.redirect('/')
 }
+
+export const test = async (req, res) => (
+  res.send('Hello this protected route worked!')
+)
+  
