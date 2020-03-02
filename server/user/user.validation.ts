@@ -2,11 +2,11 @@ import { check, validationResult } from 'express-validator';
 
 export const userSignUp = {
   validate: [
-    check('name.first')
+    check('firstName')
       .isLength({ min: 2, max: 30 })
       .withMessage('First name is a required field'),
 
-    check('name.last')
+    check('lastName')
       .isLength({ min: 2, max: 30 })
       .withMessage('First name is a required field'),
     check('email')
