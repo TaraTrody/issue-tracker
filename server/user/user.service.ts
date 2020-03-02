@@ -7,7 +7,7 @@ import config from '../config'
 
 export const signUp = async (userInput: IUserInput): Promise<{ newUser: IUser; token: string }> => {
  try {
-  const hash = await bcrypt(userInput.password, 10);
+  const hash = await bcrypt.hash(userInput.password, 10);
   const newUser = await User.create({...userInput, password: hash});
 
   newUser.password = undefined;
@@ -25,26 +25,25 @@ export const signUp = async (userInput: IUserInput): Promise<{ newUser: IUser; t
 
 export const signIn = async (email: string, password: string): Promise<{token: string }> => {
   try {
-    const user = await User.findOne({email: email}).exec()
+    const user = await User.findOne({email: email})
     if (!user) {
       throw new Error('Invalid username or password');
     } 
-    const isValidPassword = await user.validatePassword(password)
+    
+    const isValidPassword = await bcrypt.compare(password, user.password)
     
     if (!isValidPassword) {
       throw new Error('Invalid username or password')
     }
-
 
     return {
       token: generateToken(user),
     }
 
   } catch(err) {
-
+    throw err
   }
 };
-
 
 const generateToken = (newUser: IUser):string => {
   const today = new Date();
@@ -53,7 +52,7 @@ const generateToken = (newUser: IUser):string => {
 
   const data = {
     id: newUser._id,
-    name: `${newUser.name.first} ${newUser.name.last}`,
+    name: `${newUser.firstName} ${newUser.lastName}`,
     role: newUser.role,
     exp: expiry.getTime() / 1000
   }
