@@ -3,8 +3,9 @@ import cors from 'cors';
 import helmet from 'helmet';
 import mongoose from 'mongoose';
 import config from './config/index';
-
+// import passport from 'passport';
 import { userRouter } from './user/user.router';
+
 
 const options = {
   useNewUrlParser: true,
@@ -25,8 +26,11 @@ const options = {
     app.use(express.json());
     app.disable('x-powered-by');
     app.use(express.urlencoded({ extended: true }));
+    // app.use(passport.initialize());
 
-    app.use('api/v1/users', userRouter);
+    // require("./middlewares/passport-jwt")(passport)
+
+    app.use('/api/v1/user', userRouter)
 
     app.get('/', (req, res) => {
       res.sendStatus(200);
