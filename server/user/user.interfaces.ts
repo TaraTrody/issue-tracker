@@ -1,9 +1,8 @@
 export interface IUser {
   _id: string;
-  name: {
-    first: string;
-    last: string;
-  };
+  firstName: string;
+  lastName: string;
+
   email: string;
   password: string;
   role: string;
@@ -12,11 +11,8 @@ export interface IUser {
 }
 
 export interface IUserInput {
-  name: {
-    first: string;
-    last: string;
-  };
+  firstName: string;
+  lastName: string;
   email: string;
-  password: string;
-  
+  password: string; 
 }
