@@ -3,7 +3,11 @@ import cors from 'cors';
 import helmet from 'helmet';
 import mongoose from 'mongoose';
 import config from './config/index';
-// import passport from 'passport';
+import session from 'express-session'
+const MongoStore = require('connect-mongo')(session)
+import uid from 'uid-safe';
+
+import auth from './middlewares/passport-local'
 import { userRouter } from './user/user.router';
 
 
@@ -26,9 +30,25 @@ const options = {
     app.use(express.json());
     app.disable('x-powered-by');
     app.use(express.urlencoded({ extended: true }));
-    // app.use(passport.initialize());
+  
+    app.use(session({
+      name: 'issue-tracker.sid',
+      secret: uid.sync(18),
+      store: new MongoStore({
+        mongooseConnection: mongoose.connection,
+        ttl: 14 * 24 * 60 * 60,
+      }),
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        httpOnly: true,
+        maxAge: 14 * 24 * 60 * 60 * 1000,
+        secure: process.env.NODE_ENV === 'production'
+      },
+    }))
 
-    // require("./middlewares/passport-jwt")(passport)
+    app.use(auth.initialize);
+    app.use(auth.session)
 
     app.use('/api/v1/user', userRouter)
 
