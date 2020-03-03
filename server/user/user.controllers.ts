@@ -6,7 +6,6 @@ import User from './user.schema'
 
 export const signUp = async (req, res) => {
   const userData: IUserInput = req.body;
-  // console.log(userData)
   try {
   
     const result = myValidationResult(req);
@@ -29,13 +28,7 @@ export const signUp = async (req, res) => {
 };
 
 export const signIn = async (req,res) => {
-  const { email, password} = req.body;
-  try {
-    const user = await AuthService.signIn(email, password)
-    return res.json(user)
-  } catch(err) {
-    throw err;
-  }
+  return res.send(req.user)
 }
 
 export const signOut = async (req,res) => {
