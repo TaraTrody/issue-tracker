@@ -1,13 +1,13 @@
 import {Router} from 'express';
 import { userSignUp } from './user.validation';
 import * as userController from './user.controllers';
-// import passport from 'passport'
+import passport from 'passport'
 
 export const userRouter = Router();
 
   userRouter.post('/signup', userSignUp.validate, userController.signUp);
 
-  userRouter.post('/signin', userController.signIn )
+  userRouter.post('/signin', passport.authenticate('local', {successRedirect: '/'}), userController.signIn )
 
   userRouter.get('/logout', userController.signOut)
 
