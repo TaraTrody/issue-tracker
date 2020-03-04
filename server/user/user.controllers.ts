@@ -3,40 +3,54 @@ import * as AuthService from './user.service';
 import { IUserInput } from './user.interfaces';
 import { myValidationResult } from './user.validation';
 import User from './user.schema'
+import passport from 'passport'
+
 
 export const signUp = async (req, res) => {
   const userData: IUserInput = req.body;
   try {
-  
+    console.log(userData)
     const result = myValidationResult(req);
     const hasErrors = !result.isEmpty();
     if (hasErrors) {
       return res.status(400).send({ errors: result })
     } 
     const userRecord = await User.findOne({email: userData.email})
-    console.log(userRecord)
+  
     if(userRecord) {
-      return res.status(400).send("Email already kjexists")
+      return res.status(400).send("Email already exists")
     }
 
     const user = await AuthService.signUp(userData);
+   
+   if (user) return res.redirect('/')
+   return new Error('Failed to save user for unknown reasons');
 
-    return res.json( user );
   } catch (err) {
     throw err
   }
 };
 
-export const signIn = async (req,res) => {
-  return res.send(req.user)
+export const logIn = (req, res, next) => {
+  passport.authenticate("local", (err, user, info ) =>{
+    if (err) { return next(err) }
+
+    if(!user) {return res.redirect('/login')}
+
+    req.logIn(user, (err) => {
+      if (err) {return next(err) }
+      console.log(req.user)
+      return res.redirect('/dashboard')
+    })
+  })(req, res, next)
 }
 
-export const signOut = async (req,res) => {
+  export const logOut = (req,res) => {
   req.logout();
-  return res.redirect('/')
+  res.redirect('/');
 }
 
-export const test = async (req, res) => (
-  res.send('Hello this protected route worked!')
-)
-  
+export const test = (req, res, next) => {
+ console.log(req.session)
+  return res.send('logged in')
+}
