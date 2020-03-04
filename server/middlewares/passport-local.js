@@ -1,5 +1,5 @@
 import passport from 'passport'
-import LocalStrategy from ('passport-local').LocalStrategy
+const LocalStrategy = require('passport-local').Strategy;
 import config from '../config'
 import User from '../user/user.schema'
 import bcrypt from 'bcrypt'
@@ -37,8 +37,16 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+const isAuthenticated = function (req, res, next) {
+  if (req.isAuthenticated())
+    return next();
+  res.redirect('/');
+}
+
+
 export default {
  initialize: passport.initialize(),
- session: passport.session()
+ session: passport.session(),
+ isAuth: isAuthenticated
 }
 
