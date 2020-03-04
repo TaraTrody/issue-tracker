@@ -37,6 +37,7 @@ const options = {
       store: new MongoStore({
         mongooseConnection: mongoose.connection,
         ttl: 14 * 24 * 60 * 60,
+        autoRemove: 'native'
       }),
       resave: false,
       saveUninitialized: false,
@@ -56,7 +57,7 @@ const options = {
       res.sendStatus(200);
     });
 
-    app.listen(config.port, () => `Listening on port ${config.port_URL}`);
+    app.listen(config.port, () => console.log(`Listening on port ${config.port_URL}`));
   } catch (err) {
     console.log(err);
   }
