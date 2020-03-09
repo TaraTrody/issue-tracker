@@ -2,6 +2,7 @@
   "watch": [
     "server",
     ".env"
+
   ],
   "ext": "js,ts,json",
   "ignore": [

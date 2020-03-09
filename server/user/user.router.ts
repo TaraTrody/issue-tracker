@@ -13,3 +13,4 @@ userRouter.post('/login', userController.logIn)
 userRouter.get('/logout', userController.logOut)
 
 userRouter.get('/test', auth.isAuth, userController.test)
+
