@@ -8,5 +8,5 @@
   "ignore": [
     "server/**/*.spec.ts"
   ],
-  "exec": "ts-node  --transpile-only ./server/app.ts"
+  "exec": "ts-node  --transpile-only"
 }
