@@ -23,7 +23,9 @@
     "esModuleInterop": true
   },
   "include": [
-    "./server/**/*"
+    "./server/**/*",
+    "./client/**/*"
+
   ],
   "exclude": [
     "node_modules",
