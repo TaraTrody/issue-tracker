@@ -39,7 +39,7 @@ export const logIn = (req, res, next) => {
 
     req.logIn(user, (err) => {
       if (err) {return next(err) }
-      console.log(req.user)
+      console.log(req.session)
       return res.redirect('/dashboard')
     })
   })(req, res, next)
