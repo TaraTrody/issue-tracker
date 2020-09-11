@@ -17,8 +17,8 @@ export const apiMiddleware = async ({dispatch}) => (next) => (action) => {
       const response = await axios(config)
       dispatch(apiActionsCreators.apiSuccess(response, feature))
 
-    } catch { 
-      dispatch(apiActionCreators.apiError(response, feature))
+    } catch(error) { 
+      dispatch(apiActionCreators.apiError(error, feature))
     }
 
 
