@@ -10,14 +10,17 @@ export const userAuthMiddleware = () => (next) => (action) => {
 
     case SIGNUP_USER: 
       next(apiRequest({data: action.payload, method: 'POST', url:'/api/v1/user/signup', feature: USER}))
+      //TODO: add setLoader action creator
       break;
     
     case `${USER} ${API_SUCCESS}`:
       next(setUser({user: action.payload}))
+      //TODO: add setLoader action creator
       break;
 
     case `${USER} ${API_ERROR}`:
       next(setAlert({error: action.payload, feature: USER}))
+      //TODO: add setLoader action creator
       break; 
   }
 }
