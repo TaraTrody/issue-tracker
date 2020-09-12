@@ -4,7 +4,7 @@ export const API_ERROR =  'API_ERROR'
 
 export const apiRequest = ({data, method, url, feature}) => (
  {
-   type:`${feature} ${apiConstants.API_REQUEST}`,
+   type:`${feature} ${API_REQUEST}`,
    payload: data,
    meta: {method, url, feature}
  }
@@ -12,7 +12,7 @@ export const apiRequest = ({data, method, url, feature}) => (
 
 export const apiSuccess = ({response, feature}) => (
   {
-    type:`${feature} ${apiConstants.API_SUCCESS}`,
+    type:`${feature} ${API_SUCCESS}`,
     payload: response,
     meta: {feature}
   }
@@ -20,7 +20,7 @@ export const apiSuccess = ({response, feature}) => (
 
 export const apiError= ({error, feature}) => (
   {
-    type: `{feature} ${apiConstants.API_ERROR}`,
+    type: `{feature} ${API_ERROR}`,
     payload: error, 
     meta: {feature}
   }
