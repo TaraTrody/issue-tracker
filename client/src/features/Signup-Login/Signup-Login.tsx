@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import LoginForm from './LoginForm'
 
 export const SignupLogin = () => {
   return (
@@ -8,6 +9,7 @@ export const SignupLogin = () => {
         <LeftPanel>
          <Image></Image>
         </LeftPanel>
+        <LoginForm/>
       </Container>
       <Circle1></Circle1>
       <Circle2></Circle2>
@@ -48,6 +50,7 @@ const Circle2 = styled.div`
 `;
 const Container = styled.div`
   width: 52rem;
+  display: flex;
   height: 38rem;
   border-radius: 24px;
   background-color: #fff;
